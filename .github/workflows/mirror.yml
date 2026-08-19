@@ -13,16 +13,16 @@ jobs:
       matrix:
         include:
           # YAC - Yet Another Coupler
-          - upstream: https://gitlab.dkrz.de/dkrz-sw/yac
-            mirror: https://github.com/pism/yac-mirror
+          - mirror_name: yac-mirror
+            upstream: https://gitlab.dkrz.de/dkrz-sw/yac
           # YAXT - YetAnother eXchange Tool
-          - upstream: https://gitlab.dkrz.de/dkrz-sw/yaxt
-            mirror: https://github.com/pism/yaxt-mirror
+          - mirror_name: yaxt-mirror
+            upstream: https://gitlab.dkrz.de/dkrz-sw/yaxt
     concurrency:
       group: ${{ matrix.upstream }}
       cancel-in-progress: true
     steps:
       - run: git clone --bare "${{ matrix.upstream }}" .
-      - run: git push --mirror "https://x:$GITHUB_TOKEN@${{ matrix.mirror }}"
+      - run: git push --mirror "https://x:$GITHUB_TOKEN@github.com/pism/${{ matrix.mirror_name }}.git"
         env:
           GITHUB_TOKEN: ${{ secrets.MIRROR_TOKEN }}
