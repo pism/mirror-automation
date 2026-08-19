@@ -10,6 +10,6 @@ YAC - Yet Another Coupler:
 * Upstream: https://gitlab.dkrz.de/dkrz-sw/yac
 * Mirror: https://github.com/pism/yac-mirror
 
-YAXT - YetAnother eXchange Tool:
+YAXT - Yet Another eXchange Tool:
 * Upstream: https://gitlab.dkrz.de/dkrz-sw/yaxt
 * Mirror: https://github.com/pism/yaxt-mirror
