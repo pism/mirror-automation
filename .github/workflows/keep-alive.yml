@@ -1,0 +1,16 @@
+name: keep-alive.yml
+
+on:
+   schedule:
+       - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+   keep-actions-alive:
+       name: Keep GitHub Actions Alive
+       runs-on: ubuntu-latest
+       steps:
+           - uses: actions/checkout@v7.0.1
+           - uses: entepotenz/keep-github-actions-alive-min-dependencies@v1

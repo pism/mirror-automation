@@ -1,0 +1,28 @@
+name: mirror.yml
+
+on:
+   schedule:
+       - cron: "0 0 * * *"
+   workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # YAC - Yet Another Coupler
+          - upstream: https://gitlab.dkrz.de/dkrz-sw/yac
+            mirror: https://github.com/pism/yac-mirror
+          # YAXT - YetAnother eXchange Tool
+          - upstream: https://gitlab.dkrz.de/dkrz-sw/yaxt
+            mirror: https://github.com/pism/yaxt-mirror
+    concurrency:
+      group: ${{ matrix.upstream }}
+      cancel-in-progress: true
+    steps:
+      - run: git clone --bare "${{ matrix.upstream }}" .
+      - run: git push --mirror "https://x:$GITHUB_TOKEN@${{ matrix.mirror }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.MIRROR_TOKEN }}
